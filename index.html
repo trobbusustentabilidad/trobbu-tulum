@@ -408,7 +408,7 @@ a{color:inherit;text-decoration:none}
      CONFIGURACIÓN — PEGA TU SHEET ID AQUÍ
 ══════════════════════════════════════════ -->
 <script>
-const SHEET_ID = 'TU_SHEET_ID_AQUI';
+const SHEET_ID = '1MFpVHN7nH4RmHCze8IMg2JO9xykalwFHGNUcbu3Xbj4';
 const SHEETS = { tulum:'TULUM', general:'General', agua:'Agua', residuos:'Residuos', energia:'Energia' };
 </script>
 
@@ -486,10 +486,12 @@ async function fetchCSV(sheetName){
       } else {
         if(ch==='"'){inQ=true;}
         else if(ch===","){row.push(cell.trim());cell="";}
-        else if(ch===""&&nx==="
+        else if(ch==="
+"&&nx==="
 "){rows.push(row);row=[];cell="";i++;}
         else if(ch==="
-"||ch===""){rows.push(row);row=[];cell="";}
+"||ch==="
+"){rows.push(row);row=[];cell="";}
         else{cell+=ch;}
       }
     }
