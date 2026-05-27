@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trobbu Tulum – Sustentabilidad</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f2f2f0;color:#111;padding:24px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:860px;margin:0 auto}
+
+/* ── Header ── */
+.title{font-size:20px;font-weight:600;margin-bottom:3px}
+.sub{font-size:13px;color:#777;margin-bottom:16px}
+
+/* ── Tabs principales (modo) ── */
+.mode-tabs{display:flex;gap:0;margin-bottom:20px;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;background:#fff}
+.mode-tab{flex:1;padding:10px 0;font-size:13px;font-weight:500;text-align:center;cursor:pointer;border:none;background:transparent;color:#888;transition:all .15s}
+.mode-tab:first-child{border-right:1px solid #e0e0e0}
+.mode-tab.active{background:#111;color:#fff;font-weight:600}
+.mode-tab:hover:not(.active){background:#f5f5f5;color:#333}
+
+/* ── Metrics ── */
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.metric{background:#fff;border-radius:10px;padding:14px 16px;border:1px solid #e8e8e8}
+.ml{font-size:11px;color:#888;margin-bottom:5px}
+.mv{font-size:22px;font-weight:600}
+.mu{font-size:11px;color:#aaa;margin-top:2px}
+
+/* ── Sub-tabs ── */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tab{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid #ddd;background:#fff;color:#666;cursor:pointer;transition:all .15s}
+.tab:hover{border-color:#aaa;color:#111}
+.tab.active{background:#e8e8e8;color:#111;font-weight:600;border-color:#ccc}
+
+/* ── Section ── */
+.sec{margin-bottom:22px}
+.sh{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid #e5e5e5}
+.sdot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.st{font-size:14px;font-weight:600}
+.sc{font-size:11px;color:#999;margin-left:auto}
+
+/* ── Cards ── */
+.card{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:10px 14px;margin-bottom:8px}
+.cr{display:flex;align-items:flex-start;gap:10px}
+.cb{flex:1;min-width:0}
+.ct{font-size:13px;font-weight:600;margin-bottom:3px}
+.cm{font-size:11px;color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── Badges proyectos ── */
+.badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;flex-shrink:0;margin-top:1px;white-space:nowrap}
+.ba{background:#d1f5e0;color:#1a6b3c}
+.bd{background:#c8f7d6;color:#145c2f}
+.bp{background:#fff3cd;color:#7a5200}
+.bs{background:#ffe0e0;color:#8b1a1a}
+
+/* ── Docs ── */
+.docs{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.dl{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#555;background:#f7f7f5;border:1px solid #e0e0e0;border-radius:5px;padding:3px 9px;text-decoration:none}
+.dl:hover{background:#ececea;color:#111;border-color:#bbb}
+
+/* ── Delta chip ── */
+.delta{font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;display:inline-block;margin-top:4px}
+.delta.good{background:#d1f5e0;color:#1a6b3c}
+.delta.bad{background:#ffe0e0;color:#8b1a1a}
+.delta.neu{background:#f0f0f0;color:#555}
+
+/* ── Progress bar ── */
+.prog-wrap{margin-top:10px}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:#999;margin-bottom:4px}
+.prog-track{height:5px;background:#ececec;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* ── Desglose barras ── */
+.dbar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.dbar-label{font-size:12px;color:#555;width:190px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dbar-track{flex:1;height:6px;background:#ececec;border-radius:4px;overflow:hidden}
+.dbar-fill{height:100%;border-radius:4px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.dbar-val{font-size:11px;color:#555;white-space:nowrap;min-width:80px;text-align:right}
+
+/* ── Mini chart ── */
+.chart{display:flex;align-items:flex-end;gap:5px;height:64px;margin-top:10px}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.bar-col .b{width:100%;border-radius:3px 3px 0 0}
+.bar-col .bl{font-size:9px;color:#aaa}
+.bar-col.current .bl{font-weight:700;color:#555}
+
+/* ── Grid 2 cols ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+
+/* ── Resumen grid ── */
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:520px){.res-grid{grid-template-columns:1fr}}
+.res-item{text-align:center;padding:10px;background:#f9f9f8;border-radius:8px}
+.res-label{font-size:10px;color:#aaa;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.res-val{font-size:18px;font-weight:600}
+
+/* ── Contacto ── */
+.contact-box input,
+.contact-box textarea{width:100%;border:1px solid #e0e0e0;border-radius:6px;padding:8px 10px;font-size:13px;font-family:inherit;background:#fafafa;color:#111;outline:none;transition:border-color .15s;margin-top:4px}
+.contact-box input:focus,
+.contact-box textarea:focus{border-color:#aaa;background:#fff}
+.contact-box label{font-size:11px;color:#888;display:block;margin-top:10px}
+.contact-box textarea{resize:vertical;min-height:80px}
+.btn-send{margin-top:12px;background:#111;color:#fff;border:none;border-radius:6px;padding:8px 20px;font-size:12px;font-family:inherit;cursor:pointer;transition:background .15s}
+.btn-send:hover{background:#333}
+.note{background:#f7f7f5;border:1px solid #e0e0e0;border-radius:8px;padding:10px 14px;font-size:11px;color:#666;margin-top:10px;line-height:1.6}
+
+/* ── Panels ── */
+.view{display:none}.view.active{display:block}
+.panel{display:none}.panel.active{display:block}
+
+/* ── Loading ── */
+#loadingOverlay{position:fixed;inset:0;background:#f2f2f0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .4s}
+#loadingOverlay.fade-out{opacity:0;pointer-events:none}
+.spinner{width:28px;height:28px;border:3px solid #e0e0e0;border-top-color:#555;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loadingOverlay p{font-size:12px;color:#aaa}
+
+/* ── Error ── */
+#errorBanner{display:none;background:#ffe0e0;color:#8b1a1a;font-size:12px;padding:8px 14px;border-radius:8px;margin-bottom:14px}
+#errorBanner.show{display:block}
+
+/* ── Selector de mes ── */
+.mes-select{font-size:11px;padding:3px 8px;border:1px solid #ddd;border-radius:6px;background:#fff;color:#555;cursor:pointer;font-family:inherit;margin-left:auto}
+.mes-select:focus{outline:none;border-color:#aaa}
+
+/* ── Footer ── */
+.footer{margin-top:32px;padding-top:16px;border-top:1px solid #e5e5e5;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-brand{font-size:12px;font-weight:600;color:#555}
+.footer-right{font-size:11px;color:#aaa}
+</style>
+</head>
+<body>
+
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <p>Cargando datos…</p>
+</div>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="title">Trobbu Tulum</div>
+  <div class="sub">Programa de sustentabilidad · <span id="headerMes">May 2026</span></div>
+
+  <!-- Error banner datos -->
+  <div id="errorBanner">⚠️ No se pudo conectar con Google Sheets. Verifica que la hoja esté publicada y que el SHEET_ID sea correcto. <span id="errorDetail"></span></div>
+
+  <!-- ══ TABS PRINCIPALES ══ -->
+  <div class="mode-tabs">
+    <button class="mode-tab active" onclick="switchMode('proyectos',this)">📋 Proyectos</button>
+    <button class="mode-tab" onclick="switchMode('datos',this)">📊 Parámetros ambientales</button>
+  </div>
+
+  <!-- ════════════════════════════════════
+       VISTA: PROYECTOS
+  ════════════════════════════════════ -->
+  <div id="view-proyectos" class="view active">
+
+    <div class="metrics">
+      <div class="metric"><div class="ml">Proyectos</div><div class="mv">21</div></div>
+      <div class="metric"><div class="ml" style="color:#1a6b3c">Accionando</div><div class="mv" style="color:#1a6b3c">9</div></div>
+      <div class="metric"><div class="ml" style="color:#7a5200">Planeación</div><div class="mv" style="color:#7a5200">6</div></div>
+      <div class="metric"><div class="ml" style="color:#8b1a1a">Parado</div><div class="mv" style="color:#8b1a1a">5</div></div>
+      <div class="metric"><div class="ml" style="color:#145c2f">Terminado</div><div class="mv" style="color:#145c2f">2</div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="ft('all',this)">Todos</button>
+      <button class="tab" onclick="ft('Residuos',this)">♻️ Residuos</button>
+      <button class="tab" onclick="ft('Energía',this)">⚡ Energía</button>
+      <button class="tab" onclick="ft('Agua',this)">💧 Agua</button>
+      <button class="tab" onclick="ft('Paisaje',this)">🌿 Paisaje</button>
+      <button class="tab" onclick="ft('Operación',this)">⚙️ Operación</button>
+    </div>
+
+    <div id="cnt"></div>
+
+  </div>
+
+  <!-- ════════════════════════════════════
+       VISTA: PARÁMETROS AMBIENTALES
+  ════════════════════════════════════ -->
+  <div id="view-datos" class="view">
+
+    <!-- Métricas resumen -->
+    <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metric">
+        <div class="ml">Consumo agua</div>
+        <div class="mv" id="s-agua-consumo">—</div>
+        <div class="mu">m³ este mes</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Consumo energía</div>
+        <div class="mv" id="s-energia-consumo">—</div>
+        <div class="mu">kWh este mes</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Residuos reciclados</div>
+        <div class="mv" id="s-residuos-pct">—</div>
+        <div class="mu">del total generado</div>
+      </div>
+    </div>
+
+    <!-- Sub-tabs datos -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchPanel('agua',this)">💧 Agua</button>
+      <button class="tab" onclick="switchPanel('residuos',this)">♻️ Residuos</button>
+      <button class="tab" onclick="switchPanel('energia',this)">⚡ Energía</button>
+      <button class="tab" onclick="switchPanel('resumen',this)">📊 Resumen</button>
+      <button class="tab" onclick="switchPanel('contacto',this)">✉️ Contacto</button>
+    </div>
+
+    <!-- ── AGUA ── -->
+    <div id="panel-agua" class="panel active">
+      <div class="sec">
+        <div class="sh">
+          <span class="sdot" style="background:#1F618D"></span>
+          <span class="st">Agua</span>
+          <select class="mes-select" id="agua-mes-select" onchange="cambiarMesAgua(this.value)"><option>—</option></select>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <div class="ct">Consumo mensual</div>
+            <div style="font-size:22px;font-weight:600;margin-top:4px" id="a-consumo">—</div>
+            <div class="cm" style="margin-top:2px">m³</div>
+            <div class="prog-wrap">
+              <div class="prog-label"><span>0</span><span>Meta: <span id="a-meta-label">—</span> m³</span></div>
+              <div class="prog-track"><div class="prog-fill" id="a-bar" style="width:0%"></div></div>
+              <div id="a-pct" style="font-size:11px;margin-top:3px;color:#888"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ct">Último pago</div>
+            <div style="font-size:22px;font-weight:600;margin-top:4px" id="a-pago">—</div>
+            <div class="cm" style="margin-top:2px">MXN</div>
+            <div style="margin-top:8px;font-size:11px;color:#888">Mes anterior: <span id="a-pago-ant" style="color:#555;font-weight:600">—</span></div>
+            <div id="a-var" class="delta neu" style="margin-top:6px">—</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="cr" style="align-items:center">
+            <div class="cb">
+              <div class="ct">Consumo por habitación</div>
+              <div style="font-size:22px;font-weight:600;margin-top:2px"><span id="a-hab">—</span> <span style="font-size:13px;color:#aaa;font-weight:400">m³/hab</span></div>
+              <div class="cm">Referencia sector lujo Caribe: 22 m³/hab</div>
+            </div>
+            <span id="a-hab-badge" class="badge ba">—</span>
+          </div>
+          <div style="font-size:11px;color:#aaa;margin-top:10px;margin-bottom:4px">Últimos 6 meses (m³)</div>
+          <div class="chart" id="a-chart"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RESIDUOS ── -->
+    <div id="panel-residuos" class="panel">
+      <div class="sec">
+        <div class="sh">
+          <span class="sdot" style="background:#2D6A4F"></span>
+          <span class="st">Residuos</span>
+          <select class="mes-select" id="residuos-mes-select" onchange="cambiarMesResiduos(this.value)"><option>—</option></select>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <div class="ct">Total generado</div>
+            <div style="font-size:22px;font-weight:600;margin-top:4px" id="r-total">—</div>
+            <div class="cm" style="margin-top:2px">kg este mes</div>
+          </div>
+          <div class="card">
+            <div class="ct">Total reciclado</div>
+            <div style="font-size:22px;font-weight:600;margin-top:4px" id="r-reciclado">—</div>
+            <div class="cm" style="margin-top:2px">kg separados</div>
+            <div id="r-pct-badge" class="delta neu" style="margin-top:6px">—</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Último gasto de recolección</div>
+          <div style="font-size:22px;font-weight:600;margin-top:4px" id="r-pago">—</div>
+          <div class="cm" style="margin-top:2px">MXN</div>
+          <div style="margin-top:8px;font-size:11px;color:#888">Mes anterior: <span id="r-pago-ant" style="color:#555;font-weight:600">—</span></div>
+          <div id="r-var" class="delta neu" style="margin-top:6px">—</div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:12px">Desglose por corriente de reciclaje</div>
+          <div id="r-desglose"></div>
+          <div class="note" id="r-nota"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ENERGÍA ── -->
+    <div id="panel-energia" class="panel">
+      <div class="sec">
+        <div class="sh">
+          <span class="sdot" style="background:#1B4F72"></span>
+          <span class="st">Energía</span>
+          <select class="mes-select" id="energia-mes-select" onchange="cambiarMesEnergia(this.value)"><option>—</option></select>
+        </div>
+        <div class="g2">
+          <div class="card">
+            <div class="ct">Consumo mensual</div>
+            <div style="font-size:22px;font-weight:600;margin-top:4px" id="e-consumo">—</div>
+            <div class="cm" style="margin-top:2px">kWh</div>
+            <div class="prog-wrap">
+              <div class="prog-label"><span>0</span><span>Meta: <span id="e-meta-label">—</span> kWh</span></div>
+              <div class="prog-track"><div class="prog-fill" id="e-bar" style="width:0%"></div></div>
+              <div id="e-pct" style="font-size:11px;margin-top:3px;color:#888"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ct">Último pago CFE</div>
+            <div style="font-size:22px;font-weight:600;margin-top:4px" id="e-pago">—</div>
+            <div class="cm" style="margin-top:2px">MXN</div>
+            <div style="margin-top:8px;font-size:11px;color:#888">Mes anterior: <span id="e-pago-ant" style="color:#555;font-weight:600">—</span></div>
+            <div id="e-var" class="delta neu" style="margin-top:6px">—</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="cr" style="align-items:center">
+            <div class="cb">
+              <div class="ct">Generación solar</div>
+              <div style="font-size:22px;font-weight:600;margin-top:2px"><span id="e-solar">—</span> <span style="font-size:13px;color:#aaa;font-weight:400">kWh</span></div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:11px;color:#aaa">Del total consumido</div>
+              <div id="e-solar-pct" style="font-size:13px;font-weight:600;color:#1a6b3c;margin-top:2px">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct" style="margin-bottom:12px">Consumo por área</div>
+          <div id="e-areas"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RESUMEN ── -->
+    <div id="panel-resumen" class="panel">
+      <div class="sec">
+        <div class="sh">
+          <span class="sdot" style="background:#555"></span>
+          <span class="st">Resumen ejecutivo</span>
+          <span class="sc" id="resumen-mes-label">—</span>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;color:#888;margin-bottom:12px">Ahorro vs. mes anterior (MXN)</div>
+          <div class="res-grid">
+            <div class="res-item"><div class="res-label">Agua</div><div class="res-val" id="rs-agua">—</div></div>
+            <div class="res-item"><div class="res-label">Energía</div><div class="res-val" id="rs-energia">—</div></div>
+            <div class="res-item"><div class="res-label">Residuos</div><div class="res-val" id="rs-residuos">—</div></div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid #ececec;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+            <div style="font-size:12px;color:#888">Ahorro total · <span id="rs-mes">—</span></div>
+            <div style="font-size:22px;font-weight:600" id="rs-total">—</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;color:#888;margin-bottom:12px">Indicadores clave</div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
+            <div><div style="font-size:11px;color:#aaa">Agua / habitación</div><div style="font-size:15px;font-weight:600;margin-top:2px"><span id="rs-hab">—</span> m³/hab</div></div>
+            <div><div style="font-size:11px;color:#aaa">Energía solar</div><div style="font-size:15px;font-weight:600;margin-top:2px;color:#1a6b3c"><span id="rs-solar-pct">—</span></div></div>
+            <div><div style="font-size:11px;color:#aaa">Reciclaje del total</div><div style="font-size:15px;font-weight:600;margin-top:2px"><span id="rs-recicl-pct">—</span></div></div>
+            <div><div style="font-size:11px;color:#aaa">Orgánicos composteados</div><div style="font-size:15px;font-weight:600;margin-top:2px"><span id="rs-org">—</span> kg</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONTACTO ── -->
+    <div id="panel-contacto" class="panel">
+      <div class="sec">
+        <div class="sh">
+          <span class="sdot" style="background:#784212"></span>
+          <span class="st">Preguntas y sugerencias</span>
+        </div>
+        <div class="card contact-box">
+          <div class="cm" style="margin-bottom:12px">Si hay un dato que falta, un error en alguna cifra o una propuesta de mejora, escríbenos.</div>
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="g2" style="gap:8px;margin-bottom:0">
+              <div><label>Nombre</label><input type="text" id="nombre" placeholder="Tu nombre" required></div>
+              <div><label>Área / Puesto</label><input type="text" id="area" placeholder="Ej. Ventas, Operaciones"></div>
+            </div>
+            <label>Mensaje</label>
+            <textarea id="mensaje" placeholder="Escribe tu pregunta o sugerencia…" required></textarea>
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:12px">
+              <div style="font-size:11px;color:#aaa">También puedes escribir a <a href="mailto:sustentabilidad@trobbu.com" style="color:#555;text-decoration:underline">sustentabilidad@trobbu.com</a></div>
+              <button type="submit" class="btn-send">Enviar mensaje</button>
+            </div>
+          </form>
+          <div id="successMsg" style="display:none;font-size:13px;color:#1a6b3c;background:#d1f5e0;border-radius:6px;padding:10px 14px;margin-top:10px">✓ Mensaje enviado. El equipo de sustentabilidad lo revisará pronto.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /view-datos -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">Trobbu Boutique Collection</div>
+    <div class="footer-right">Reporte ambiental · Tulum · <span id="footerMes">—</span> · sustentabilidad@trobbu.com</div>
+  </div>
+
+</div><!-- /wrap -->
+
+
+<!-- ══════════════════════════════════════════
+     CONFIGURACIÓN — PEGA TU SHEET ID AQUÍ
+══════════════════════════════════════════ -->
+<script>
+const SHEET_ID = '1MFpVHN7nH4RmHCze8IMg2JO9xykalwFHGNUcbu3Xbj4';
+const SHEETS = { tulum:'TULUM', agua:'Agua', residuos:'Residuos', energia:'Energia' };
+</script>
+
+<script>
+// ── Colores y badges por tema ─────────────────────────
+const TEMA_COLORS={
+  'Residuos':'#2D6A4F','Energía':'#1B4F72','Energia':'#1B4F72',
+  'Agua':'#1F618D','Paisaje':'#196F3D','Operación':'#784212','Operacion':'#784212'
+};
+const BC={ACCIONANDO:'ba',TERMINADO:'bd',PLANEACIÓN:'bp',PLANEACION:'bp',PARADO:'bs'};
+const BL={ACCIONANDO:'Accionando',TERMINADO:'Terminado',PLANEACIÓN:'Planeación',PLANEACION:'Planeación',PARADO:'Parado'};
+
+function dicon(url){
+  if(!url)return'📎';
+  if(url.includes('spreadsheet'))return'📊';
+  if(url.includes('presentation'))return'📑';
+  if(url.includes('document'))return'📄';
+  if(url.includes('folders'))return'📁';
+  return'📎';
+}
+function docsH(docs){
+  if(!docs||!docs.length)return'';
+  return'<div class="docs">'+docs.map(d=>`<a class="dl" href="${d.url}" target="_blank">${dicon(d.url)} ${d.nm.length>42?d.nm.slice(0,40)+'…':d.nm}</a>`).join('')+'</div>';
+}
+function renderTema(key, items){
+  const c=TEMA_COLORS[key]||'#888';
+  const cards=items.map(i=>{
+    const meta=[i.a,i.n].filter(Boolean).join(' · ');
+    const sKey=i.s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/\s/g,'');
+    const badgeClass=Object.keys(BC).find(k=>k.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase()===sKey)||'bs';
+    const badgeLabel=BL[i.s]||i.s;
+    return`<div class="card"><div class="cr"><div class="cb"><div class="ct">${i.p}</div>${meta?`<div class="cm">${meta}</div>`:''}</div><span class="badge ${BC[badgeClass]||badgeClass}">${badgeLabel}</span></div>${docsH(i.docs)}</div>`;
+  }).join('');
+  return`<div class="sec"><div class="sh"><span class="sdot" style="background:${c}"></span><span class="st">${key}</span><span class="sc">${items.length} proyectos</span></div>${cards}</div>`;
+}
+
+// Datos agrupados desde Sheets
+let PROYECTOS = {};
+let cur='all';
+
+function renderProyectos(){
+  const keys=Object.keys(PROYECTOS);
+  if(!keys.length){
+    document.getElementById('cnt').innerHTML='<div style="font-size:13px;color:#aaa;padding:20px 0">Cargando proyectos…</div>';
+    return;
+  }
+  let h='';
+  keys.forEach(k=>{if(cur==='all'||cur===k)h+=renderTema(k,PROYECTOS[k]);});
+  document.getElementById('cnt').innerHTML=h;
+}
+function ft(k,btn){
+  cur=k;
+  document.querySelectorAll('#view-proyectos .tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderProyectos();
+}
+
+// ── Leer pestaña TULUM desde Sheets ──────────────────
+async function fetchCSV(sheetName){
+  const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+  const res=await fetch(url);
+  if(!res.ok)throw new Error(`HTTP ${res.status} al leer "${sheetName}"`);
+  const text=await res.text();
+
+  // Parser robusto: maneja saltos de línea y comas dentro de celdas con comillas
+  function parseCSV(str){
+    var rows=[],row=[],cell="",inQ=false,ch,nx,CR=String.fromCharCode(13),LF=String.fromCharCode(10);
+    for(var i=0;i<str.length;i++){
+      ch=str[i];nx=str[i+1];
+      if(inQ){
+        if(ch==='"'&&nx==='"'){cell+='"';i++;}
+        else if(ch==='"'){inQ=false;}
+        else{cell+=ch;}
+      }else{
+        if(ch==='"'){inQ=true;}
+        else if(ch===','){row.push(cell.trim());cell='';}
+        else if(ch===CR&&nx===LF){rows.push(row);row=[];cell='';i++;}
+        else if(ch===CR||ch===LF){rows.push(row);row=[];cell='';}
+        else{cell+=ch;}
+      }
+    }
+    if(cell||row.length)row.push(cell.trim());
+    if(row.length>1||row[0])rows.push(row);
+    return rows;
+  }
+
+  const rows=parseCSV(text.trim());
+  const headers=rows[0].map(h=>h.trim());
+  return rows.slice(1).filter(r=>r.some(c=>c.trim())).map(row=>{
+    const obj={};
+    headers.forEach((h,i)=>obj[h]=(row[i]||'').trim());
+    return obj;
+  });
+}
+
+
+async function loadProyectos(){
+  try{
+    const rows=await fetchCSV(SHEETS.tulum);
+    // Columnas: TEMA, PROGRAMA/PROYECTO, ÁREAS INVOLUCRADAS, STATUS, DOCUMENTOS, COMENTARIOS, SEGUIMIENTO
+    // También intentamos leer columna de URL si existe (col H en adelante)
+    const grouped={};
+    // Debug: imprimir headers de la primera fila para verificar nombres de columnas
+    if(rows.length>0) console.log('Columnas detectadas:', Object.keys(rows[0]));
+
+    rows.forEach(r=>{
+      // Buscar columnas de forma flexible (insensible a mayúsculas/acentos)
+      const keys=Object.keys(r);
+      const col=(names)=>{
+        for(const n of names){
+          const k=keys.find(k=>k.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')===n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''));
+          if(k&&r[k].trim()) return r[k].trim();
+        }
+        return '';
+      };
+      const tema=col(['TEMA','Tema']);
+      const proyecto=col(['PROGRAMA / PROYECTO','PROGRAMA/PROYECTO','Programa / Proyecto','Programa/Proyecto']);
+      const areas=col(['ÁREAS INVOLUCRADAS','AREAS INVOLUCRADAS','Areas involucradas','Áreas involucradas']);
+      const status=col(['STATUS','Status']).toUpperCase();
+      const docNm=col(['DOCUMENTOS','Documentos']);
+      const comentario=col(['COMENTARIOS','Comentarios']);
+      const seguimiento=col(['SEGUIMIENTO','Seguimiento']);
+      const urlCol=col(['URL','LINK','Link','url']);
+
+      if(!tema||!proyecto)return;
+      if(!grouped[tema])grouped[tema]=[];
+
+      // Separar múltiples links por espacio
+      const urls=urlCol?urlCol.split(/\s+/).filter(u=>u.startsWith('http')):[];
+      // Nombre limpio del documento (sin URLs incrustadas)
+      const docNmClean=docNm.replace(/https?:\/\/[^\s]*/g,'').trim();
+
+      let docs=[];
+      if(urls.length===0&&docNmClean){
+        // Sin link
+        docs=[{nm:docNmClean,url:'#'}];
+      } else if(urls.length===1&&docNmClean){
+        docs=[{nm:docNmClean,url:urls[0]}];
+      } else if(urls.length>1){
+        // Varios links: si hay nombre, usarlo para el primero; resto con nombre genérico
+        docs=urls.map((u,i)=>({
+          nm:i===0&&docNmClean?docNmClean:`Documento ${i+1}`,
+          url:u
+        }));
+      }
+      grouped[tema].push({
+        p:proyecto,
+        a:areas.replace(/\n/g,' / '),
+        s:status,
+        n:[comentario,seguimiento].filter(Boolean).join(' · '),
+        docs
+      });
+    });
+    PROYECTOS=grouped;
+
+    // Actualizar contadores métricas
+    const allItems=Object.values(grouped).flat();
+    const total=allItems.length;
+    const acc=allItems.filter(i=>i.s==='ACCIONANDO').length;
+    const plan=allItems.filter(i=>i.s.includes('PLANEACI')).length;
+    const par=allItems.filter(i=>i.s==='PARADO').length;
+    const term=allItems.filter(i=>i.s==='TERMINADO').length;
+    const mEls=document.querySelectorAll('#view-proyectos .metric .mv');
+    if(mEls[0])mEls[0].textContent=total;
+    if(mEls[1])mEls[1].textContent=acc;
+    if(mEls[2])mEls[2].textContent=plan;
+    if(mEls[3])mEls[3].textContent=par;
+    if(mEls[4])mEls[4].textContent=term;
+
+    renderProyectos();
+  } catch(err){
+    console.error('Error cargando proyectos:',err);
+    // Fallback: mostrar mensaje en el contenedor
+    document.getElementById('cnt').innerHTML=`<div style="font-size:12px;color:#8b1a1a;background:#ffe0e0;padding:10px 14px;border-radius:8px">No se pudieron cargar los proyectos desde Sheets: ${err.message}</div>`;
+  }
+}
+renderProyectos(); // muestra "cargando" mientras llega la data
+
+// ── Modo principal ────────────────────────────────────
+function switchMode(name, btn) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Sub-tabs datos ────────────────────────────────────
+function switchPanel(name, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#view-datos .tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── Helpers datos ─────────────────────────────────────
+const fmt  = n => Number(n).toLocaleString('es-MX');
+const fmtM = n => '$' + Number(n).toLocaleString('es-MX');
+
+function setDelta(elId, actual, anterior, unidad='MXN') {
+  const el=document.getElementById(elId);
+  const diff=actual-anterior;
+  const pct=anterior?Math.abs((diff/anterior)*100).toFixed(1):0;
+  if(diff<0){el.textContent=`▼ $${fmt(Math.abs(diff))} ${unidad} (${pct}% ahorro)`;el.className='delta good';}
+  else if(diff>0){el.textContent=`▲ $${fmt(diff)} ${unidad} (${pct}% más)`;el.className='delta bad';}
+  else{el.textContent='Sin variación';el.className='delta neu';}
+}
+
+function setBar(barId, actual, meta, pctId, metaLabelId, color) {
+  const pct=meta>0?Math.min(Math.round((actual/meta)*100),110):0;
+  const bar=document.getElementById(barId);
+  if(metaLabelId)document.getElementById(metaLabelId).textContent=fmt(meta);
+  setTimeout(()=>{if(bar)bar.style.width=Math.min(pct,100)+'%';},120);
+  if(bar)bar.style.background=pct>100?'#e57373':color;
+  if(pctId){
+    const el=document.getElementById(pctId);
+    el.textContent=pct<=100?pct+'% de la meta mensual':pct+'% — '+(pct-100)+'% sobre meta';
+    el.style.color=pct>100?'#8b1a1a':'#1a6b3c';
+  }
+}
+
+async function fetchSheet(name) {
+  const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
+  const res=await fetch(url);
+  if(!res.ok)throw new Error(`HTTP ${res.status} al leer "${name}"`);
+  const text=await res.text();
+  // Parser robusto: maneja celdas con comas y saltos de linea
+  var rows=[],row=[],cell="",inQ=false,ch,nx,CR=String.fromCharCode(13),LF=String.fromCharCode(10);
+  for(var i=0;i<text.length;i++){
+    ch=text[i];nx=text[i+1];
+    if(inQ){
+      if(ch==='"'&&nx==='"'){cell+='"';i++;}
+      else if(ch==='"'){inQ=false;}
+      else{cell+=ch;}
+    }else{
+      if(ch==='"'){inQ=true;}
+      else if(ch===','){row.push(cell.trim());cell='';}
+      else if(ch===CR&&nx===LF){rows.push(row);row=[];cell='';i++;}
+      else if(ch===CR||ch===LF){rows.push(row);row=[];cell='';}
+      else{cell+=ch;}
+    }
+  }
+  if(cell||row.length)row.push(cell.trim());
+  if(row.length>1||row[0])rows.push(row);
+  var headers=rows[0]||[];
+  return rows.slice(1).filter(function(r){return r.some(function(c){return c;});}).map(function(row){
+    var obj={};headers.forEach(function(h,i){obj[h]=(row[i]||'').trim();});return obj;
+  });
+}
+
+const COLORS_RES=['#2D6A4F','#52b788','#74c69d','#95d5b2','#b7e4c7','#d8f3dc'];
+const COLORS_EN=['#1B4F72','#2980b9','#5dade2','#85c1e9','#aed6f1'];
+
+function buildChart(id, rows, campo, color) {
+  const el=document.getElementById(id);
+  if(!el||!rows.length)return;
+  const vals=rows.map(r=>parseFloat(r[campo])||0);
+  const max=Math.max(...vals,1);
+  el.innerHTML=rows.map((r,i)=>{
+    const h=Math.round((vals[i]/max)*100);
+    const last=i===rows.length-1;
+    return`<div class="bar-col${last?' current':''}"><div class="b" style="height:${h}%;background:${last?color:'#e0e0e0'};min-height:3px"></div><div class="bl">${r['Mes']||''}</div></div>`;
+  }).join('');
+}
+
+function buildDesglose(id, rows, valField, colors) {
+  const el=document.getElementById(id);
+  if(!el)return;
+  const vals=rows.map(r=>parseFloat(r[valField])||0);
+  const total=vals.reduce((a,b)=>a+b,0);
+  el.innerHTML=rows.map((r,i)=>{
+    const v=vals[i];const pct=total>0?Math.round((v/total)*100):0;
+    const un=r['Unidad']||'kg';
+    return`<div class="dbar-row"><div class="dbar-label">${r['Nombre']||r['Area']||'—'}</div><div class="dbar-track"><div class="dbar-fill" data-target="${pct}%" style="width:0%;background:${colors[i%colors.length]}"></div></div><div class="dbar-val">${fmt(v)} ${un} <span style="color:#aaa">(${pct}%)</span></div></div>`;
+  }).join('');
+  setTimeout(()=>el.querySelectorAll('.dbar-fill[data-target]').forEach(b=>b.style.width=b.dataset.target),150);
+}
+
+// ── Datos globales para los selectores ───────────────
+var DATA_GLOBAL = {};
+
+function poblarSelector(selectId, meses, mesActual) {
+  var sel = document.getElementById(selectId);
+  if(!sel) return;
+  // Show newest first
+  var reversed = meses.slice().reverse();
+  sel.innerHTML = reversed.map(function(m){
+    return '<option value="'+m+'"'+(m===mesActual?' selected':'')+'>'+m+'</option>';
+  }).join('');
+  sel.value = mesActual;
+}
+
+function renderAgua(mesSeleccionado) {
+  var aRows = DATA_GLOBAL.agua.filter(function(r){return r['Mes']===mesSeleccionado&&parseFloat((r['Consumo_m3']||'').replace(/,/g,''))>0;});
+  var aChart = DATA_GLOBAL.agua.filter(function(r){return parseFloat((r['Consumo_m3']||'').replace(/,/g,''))>0;});
+  var a = aRows.length ? aRows[0] : {};
+  var aC=parseFloat((a['Consumo_m3']||'').replace(/,/g,''))||0;
+  var aM=parseFloat((a['Meta_m3']||'').replace(/,/g,''))||1;
+  var aP=parseFloat((a['Pago_MXN']||'').replace(/,/g,''))||0;
+  var aPA=parseFloat((a['Pago_anterior_MXN']||'').replace(/,/g,''))||0;
+  var aH=parseFloat(a['Habitaciones'])||10;
+  var aHV=(aC/aH).toFixed(1);
+  document.getElementById('a-consumo').textContent=fmt(aC);
+  document.getElementById('a-pago').textContent=fmtM(aP);
+  document.getElementById('a-pago-ant').textContent=fmtM(aPA);
+  document.getElementById('a-hab').textContent=aHV;
+  setDelta('a-var',aP,aPA);
+  setBar('a-bar',aC,aM,'a-pct','a-meta-label','#1F618D');
+  var aHB=document.getElementById('a-hab-badge');
+  var aHN=parseFloat(aHV);
+  if(aHN<=20){aHB.textContent='Bajo el promedio';aHB.className='badge ba';}
+  else if(aHN<=22){aHB.textContent='En el promedio';aHB.className='badge bp';}
+  else{aHB.textContent='Sobre el promedio';aHB.className='badge bs';}
+  buildChart('a-chart',aChart,'Consumo_m3','#1F618D');
+  document.getElementById('s-agua-consumo').textContent=fmt(aC);
+  document.getElementById('rs-hab').textContent=aHV;
+}
+
+function renderResiduos(mesSeleccionado) {
+  var rRows=DATA_GLOBAL.residuos.filter(function(r){return r['Mes']===mesSeleccionado;});
+  var rD=rRows.filter(function(r){return r['Tipo']==='DESGLOSE';});
+  var rPagoRow=rRows.find(function(r){return r['Tipo']==='PAGO';})||{};
+  var rTK=rD.reduce(function(s,r){return s+(parseFloat(r['Cantidad_kg'])||0);},0);
+  var rP=parseFloat((rPagoRow['Pago_MXN']||'').replace(/,/g,''))||0;
+  var rPA=parseFloat((rPagoRow['Pago_anterior_MXN']||'').replace(/,/g,''))||0;
+  var rOK=parseFloat((rD.find(function(x){return x['Nombre']==='Orgánicos (composta)';})||{})['Cantidad_kg'])||0;
+  document.getElementById('r-total').textContent=fmt(rTK);
+  document.getElementById('r-reciclado').textContent=fmt(rTK);
+  document.getElementById('r-pago').textContent=fmtM(rP);
+  document.getElementById('r-pago-ant').textContent=fmtM(rPA);
+  var rPB=document.getElementById('r-pct-badge');
+  rPB.textContent='100% reciclado';
+  rPB.className='delta good';
+  setDelta('r-var',rP,rPA);
+  buildDesglose('r-desglose',rD,'Cantidad_kg',COLORS_RES);
+  document.getElementById('r-nota').innerHTML=rOK>0?'Los <strong>'+fmt(rOK)+' kg</strong> de orgánicos composteados equivalen a ~<strong>'+(rOK*0.0005).toFixed(2)+' t de CO₂ no emitidas</strong>.':'';
+  document.getElementById('s-residuos-pct').textContent=fmt(rTK)+' kg';
+  document.getElementById('rs-recicl-pct').textContent=fmt(rTK)+' kg';
+  document.getElementById('rs-org').textContent=fmt(rOK);
+  var rAh=rPA-rP;
+  var fa=function(v){return(v>=0?'+':'-')+fmtM(Math.abs(v));};
+  document.getElementById('rs-residuos').textContent=fa(rAh);
+}
+
+function renderEnergia(mesSeleccionado) {
+  var eRows=DATA_GLOBAL.energia.filter(function(r){return r['Mes']===mesSeleccionado;});
+  var eT=eRows.find(function(r){return r['Tipo']==='TOTAL';})||{};
+  var eA=eRows.filter(function(r){return r['Tipo']==='AREA';});
+  var eC=parseFloat((eT['Consumo_kWh']||'').replace(/,/g,''))||0;
+  var eM=parseFloat((eT['Meta_kWh']||'').replace(/,/g,''))||1;
+  var eP=parseFloat((eT['Pago_MXN']||'').replace(/,/g,''))||0;
+  var ePA=parseFloat((eT['Pago_anterior_MXN']||'').replace(/,/g,''))||0;
+  var eS=parseFloat((eT['Solar_kWh']||'').replace(/,/g,''))||0;
+  var eSP=eC>0?(eS/eC*100).toFixed(1)+'%':'—';
+  document.getElementById('e-consumo').textContent=fmt(eC);
+  document.getElementById('e-pago').textContent=fmtM(eP);
+  document.getElementById('e-pago-ant').textContent=fmtM(ePA);
+  document.getElementById('e-solar').textContent=fmt(eS);
+  document.getElementById('e-solar-pct').textContent=eSP+' energía limpia';
+  setDelta('e-var',eP,ePA);
+  setBar('e-bar',eC,eM,'e-pct','e-meta-label','#1B4F72');
+  buildDesglose('e-areas',eA,'Consumo_kWh',COLORS_EN);
+  document.getElementById('s-energia-consumo').textContent=fmt(eC);
+  document.getElementById('rs-solar-pct').textContent=eSP;
+  var eAh=ePA-eP;
+  var fa=function(v){return(v>=0?'+':'-')+fmtM(Math.abs(v));};
+  document.getElementById('rs-energia').textContent=fa(eAh);
+}
+
+function cambiarMesAgua(mes){ renderAgua(mes); }
+function cambiarMesResiduos(mes){ renderResiduos(mes); }
+function cambiarMesEnergia(mes){ renderEnergia(mes); }
+
+function renderDatos(data) {
+  // Guardar datos globalmente
+  DATA_GLOBAL = data;
+
+  // ── AGUA ──────────────────────────────────────────
+  var aMesesTodos = data.agua
+    .filter(function(r){ return parseFloat((r['Consumo_m3']||'').replace(/,/g,'')) > 0; })
+    .map(function(r){ return r['Mes']||''; })
+    .filter(Boolean);
+  var aMesActual = aMesesTodos.length ? aMesesTodos[aMesesTodos.length-1] : '';
+  poblarSelector('agua-mes-select', aMesesTodos, aMesActual);
+  if(aMesActual) renderAgua(aMesActual);
+
+  // ── RESIDUOS ──────────────────────────────────────
+  var rMesesTodos = [...new Set(data.residuos.map(function(r){ return r['Mes']||''; }))].filter(Boolean);
+  var rMesActual = rMesesTodos.length ? rMesesTodos[rMesesTodos.length-1] : '';
+  poblarSelector('residuos-mes-select', rMesesTodos, rMesActual);
+  if(rMesActual) renderResiduos(rMesActual);
+
+  // ── ENERGÍA ──────────────────────────────────────
+  var eMesesTodos = [...new Set(data.energia.map(function(r){ return r['Mes']||''; }))].filter(Boolean);
+  var eMesActual = eMesesTodos.length ? eMesesTodos[eMesesTodos.length-1] : '';
+  poblarSelector('energia-mes-select', eMesesTodos, eMesActual);
+  if(eMesActual) renderEnergia(eMesActual);
+
+  // ── HEADER y FOOTER ──────────────────────────────
+  var mesHeader = aMesActual || '—';
+  ['headerMes','resumen-mes-label','rs-mes','footerMes'].forEach(function(id){
+    var e = document.getElementById(id); if(e) e.textContent = mesHeader;
+  });
+}
+
+// ── Formulario ────────────────────────────────────────
+function handleSubmit(e) {
+  e.preventDefault();
+  var n=document.getElementById('nombre').value;
+  var ar=document.getElementById('area').value;
+  var m=document.getElementById('mensaje').value;
+  var body='Nombre: '+n+String.fromCharCode(10)+'Area: '+ar+String.fromCharCode(10)+String.fromCharCode(10)+m;window.location.href='mailto:sustentabilidad@trobbu.com?subject='+encodeURIComponent('Dashboard ambiental Tulum')+'&body='+encodeURIComponent(body);
+  document.getElementById('contactForm').style.display='none';
+  document.getElementById('successMsg').style.display='block';
+}
+
+// ── Init ─────────────────────────────────────────────
+async function init() {
+  if(SHEET_ID==='TU_SHEET_ID_AQUI'){
+    document.getElementById('errorBanner').classList.add('show');
+    document.getElementById('errorDetail').textContent='— Configura el SHEET_ID en el código.';
+    document.getElementById('loadingOverlay').classList.add('fade-out');
+    setTimeout(function(){document.getElementById('loadingOverlay').style.display='none';},500);
+    return;
+  }
+  loadProyectos();
+  try {
+    var agua = await fetchSheet(SHEETS.agua);
+    var residuos = await fetchSheet(SHEETS.residuos);
+    var energia = await fetchSheet(SHEETS.energia);
+    renderDatos({agua:agua, residuos:residuos, energia:energia});
+  } catch(err) {
+    console.warn('Parámetros ambientales no disponibles:',err.message);
+    document.getElementById('errorBanner').classList.add('show');
+    document.getElementById('errorDetail').textContent='Parámetros ambientales: '+err.message;
+  } finally {
+    document.getElementById('loadingOverlay').classList.add('fade-out');
+    setTimeout(function(){document.getElementById('loadingOverlay').style.display='none';},500);
+  }
+}
+init();
+</script>
+</body>
+</html>
